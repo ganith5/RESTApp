@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Project1",
+    "description": "This is the project description for P1  ",
+    "members": [
+      {"id": 1, "name": "User1"}, {"id": 2, "name": "User2"}, {"id": 3, "name": "User3"}
+    ],
+    "workpackage": [
+      {"id": 1, "assignee": "User1", "subject": "WP1 description", "type": "Task", "status": "Scheduled"},
+      {"id": 2, "assignee": "User1", "subject": "WP2 description", "type": "Bug", "status": "Developed"},
+      {"id": 3, "assignee": "User1", "subject": "WP3 description", "type": "Epic", "status": "In progress"}
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Project2",
+    "description": "This is the project description for P2  ",
+    "members": [
+      {"id": 1, "name": "User1"}, {"id": 2, "name": "User2"}, {"id": 3, "name": "User3"}
+    ],
+    "workpackage": [
+      {"id": 1, "assignee": "User2", "subject": "WP1 description", "type": "Task", "status": "Scheduled"},
+      {"id": 2, "assignee": "User2", "subject": "WP2 description", "type": "Bug", "status": "Developed"},
+      {"id": 3, "assignee": "User2", "subject": "WP3 description", "type": "Epic", "status": "In progress"},
+      {"id": 4, "assignee": "User2", "subject": "WP1 description", "type": "Task", "status": "Scheduled"},
+      {"id": 5, "assignee": "User2", "subject": "WP2 description", "type": "Bug", "status": "Developed"},
+      {"id": 6, "assignee": "User2", "subject": "WP3 description", "type": "Epic", "status": "In progress"},
+      {"id": 7, "assignee": "User2", "subject": "WP1 description", "type": "Task", "status": "Scheduled"},
+      {"id": 8, "assignee": "User2", "subject": "WP2 description", "type": "Bug", "status": "Developed"},
+      {"id": 9, "assignee": "User2", "subject": "WP3 description", "type": "Epic", "status": "In progress"},
+      {"id": 10, "assignee": "User2", "subject": "WP1 description", "type": "Task", "status": "Scheduled"},
+      {"id": 11, "assignee": "User2", "subject": "WP2 description", "type": "Bug", "status": "Developed"},
+      {"id": 12, "assignee": "User2", "subject": "WP3 description", "type": "Epic", "status": "In progress"}
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Project3",
+    "description": "This is the project description for P3  ",
+    "members": [
+      {"id": 1, "name": "User1"}, {"id": 2, "name": "User2"}, {"id": 3, "name": "User3"}
+    ],
+    "workpackage": [
+      {"id": 1, "assignee": "User3", "subject": "WP1 description", "type": "Task", "status": "Scheduled"},
+      {"id": 2, "assignee": "User3", "subject": "WP2 description", "type": "Bug", "status": "Developed"},
+      {"id": 3, "assignee": "User3", "subject": "WP3 description", "type": "Epic", "status": "In progress"}
+    ]
+  }
+]
