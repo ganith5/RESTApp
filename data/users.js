@@ -5,7 +5,13 @@
 
 exports.SingleRow = {
     "userId": 123,
-    "name": "User1"
+    "fname": "User1",
+    "lname": "Last1",
+    "status": "Active",
+    "email": "user.last@gmail.com",
+    "creationDate": new Date(),
+    "modificationDate": new Date(),
+    "projectId": [123]
 }
 
 

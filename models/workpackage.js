@@ -4,17 +4,17 @@
 
 
 var settings = require('../db/settings')
-var model = require('../models/users')
+var usersModel = require('../models/users')
 var mongoose = settings.mongoose
 
 
 
-var usersSchema = model.Users.schema;
+//var usersSchema = usersModel.Users.schema;
 
 
 var workPackageSchema = mongoose.Schema({
-    wid: {type: Number},
-    assignee: [usersSchema],
+    wid: {type: Number, required: [true, 'Workpackage id is mandatory']},
+    assignee: {type: mongoose.Schema.Types.ObjectId, ref: 'users'},
     subject: {type: String},
     type: {type: String, enum: ['Task', 'Milestone', 'Phase', 'Feature', 'Bug']},
     status: {type: String, enum: ['New', 'Scheduled', 'Developed', 'Specified', 'Confirmed', 'In Progress']},

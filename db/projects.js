@@ -15,7 +15,14 @@ exports.save = function(data, callback) {
 exports.select = function (criteria, callback) {
 
   //  console.log("db/projects : " + criteria)
-    model.projects.find(criteria, function (err, data) {
-        callback(err, data)
-    })
+  //   model.projects.find(criteria, function (err, data) {
+  //       callback(err, data)
+  //   })
+
+    model.projects.find(criteria)
+        .populate('members', 'userId fname')
+        .exec(function(error, projectDoc){
+            console.log("Project document : " + JSON.stringify(projectDoc));
+            callback(error, projectDoc);
+        })
 }

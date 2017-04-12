@@ -24,17 +24,17 @@ var projectData = require('../data/projects')
 
 
 
-projectDb.save(projectData.SingleRow, function(error, retData){
-    if(error){
-        console.log("Unable to save [Project] data : " + JSON.stringify(error))
-    }
-    else {
-        console.log("Project record saved : " + JSON.stringify(retData))
-    }
-});
+// projectDb.save(projectData.SingleRow, function(error, retData){
+//     if(error){
+//         console.log("Unable to save [Project] data : " + JSON.stringify(error))
+//     }
+//     else {
+//         console.log("Project record saved : " + JSON.stringify(retData))
+//     }
+// });
 
 
-projectDb.select(criteria, function (error, data) {
+projectDb.select({pid: 123}, function (error, data) {
 
     if(error) {
         console.log("Error in saving project");

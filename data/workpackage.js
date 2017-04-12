@@ -5,17 +5,11 @@
 
 exports.SingleRow = {
     "wid": 123,
-    "assignee": {
-        "userId": 123,
-        "fname": "User1",
-        "lname": "Lname1",
-        "status": "Invited",
-        "email": "user1@gmail.com",
-        "creationDate": new Date(),
-        "modificationDate": new Date()
-    },
+    "assignee":
+        123
+    ,
     "subject": "Go-Live",
-    "type": "Task1",
+    "type": "Task",
     "status": "New",
     "creationDate": new Date(),
     "modificationDate": new Date()

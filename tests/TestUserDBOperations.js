@@ -23,14 +23,14 @@ userDb.save(userData.SingleRow, function(error, retData){
 });
 
 
-userDb.saveMany(userData.MultipleRows, function(error, retData){
-    if(error){
-        console.log("unable to save data" + JSON.stringify(error))
-    }
-    else {
-        console.log("Records saved!" + retData)
-    }
-});
+// userDb.saveMany(userData.MultipleRows, function(error, retData){
+//     if(error){
+//         console.log("unable to save data" + JSON.stringify(error))
+//     }
+//     else {
+//         console.log("Records saved!" + retData)
+//     }
+// });
 
 
 

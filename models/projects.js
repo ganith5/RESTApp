@@ -3,22 +3,27 @@
  */
 
 var settings = require('../db/settings')
-var userModel = require('../models/users')
-var wkpModel = require('../models/workpackage')
 var mongoose = settings.mongoose
-var usersSchema = userModel.Users.schema
-var workPackageSchema = wkpModel.workpackage.schema
+require('../models/users')
+//var wkpModel = require('../models/workpackage')
+
+//var usersSchema = userModel.Users.schema
+//var workPackageSchema = wkpModel.workpackage.schema
+
+
 
 
 var projectSchema = mongoose.Schema({
-    pid: {type: Number, required:[true, 'Id is a mandatory value']},
+    pid: {type: String, required:[true, 'Id is a mandatory value']},
     name: {type: String, required: [true, 'Project name is a required value']},
     description: {type: String},
     type: {type: String, enum: ['Scrum Team', 'Standard Project']},
-    members: [usersSchema],
-    workPackages: [workPackageSchema],
+    members: [{type: mongoose.Schema.Types.ObjectId, ref: 'users'}],
+    workPackages: [{type: Number, ref: 'workpackage'}],
     creationDate: {type: Date},
     modificationDate: {type: Date}
 });
 
 exports.projects = mongoose.model('projects', projectSchema);
+
+

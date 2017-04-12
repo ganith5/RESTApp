@@ -9,20 +9,30 @@ process.env.DB_URI = "mongodb://ds137090.mlab.com:37090/openprojdb"
 process.env.DB_USER = "openproj"
 process.env.DB_PASSWORD = "openproj"
 
-var db = require('../../db/projects')
+var projectDB = require('../../db/projects')
+
+var workPackageDB = require('../../db/workpackage')
+
+var userDB = require('../../db/users')
 
 
 module.exports = function(router){
     'use strict';
 
     //    /v1/projects
-    router.route(URI).get(function(req, res,next){
-        console.log("GET Projects")
+    router.route(URI).get(function(req, res, next){
+        console.log("GET Projects req.query length : " + isObjectEmpty(req.query))
         //1. Setup query riteria for the active pacakages
-        var criteria = {pid : {$eq : 1230}}
+        var criteria = {};
+        if(!isObjectEmpty(req.query)) {
+            var id = req.query.id;
+            criteria = {pid : {$eq : id}}
+        }
+
+
         console.log("criteria project : " + JSON.stringify(criteria));
         //2. execute the query
-        db.select(criteria, function(err, docs){
+        projectDB.select(criteria, function(err, docs){
 
             if(err){
                 console.log(err)
@@ -32,11 +42,18 @@ module.exports = function(router){
                 if(docs.length == 0){
                     res.status(404)
                 }
-                console.log("Retrieved projects = %d",docs.length)
-                res.send(docs)
+                console.log("Retrieved projects = %d", docs.length)
+                if(docs.length == 1) {
+                    //Get project by id, hence, only one document will be returned at a time
+                    res.send(docs[0]);
+                } else{
+                    res.send(docs);
+                }
+
             }
         });
     });
+
 
     // CREATE new projects packages
     router.route(URI).post(
@@ -63,5 +80,9 @@ module.exports = function(router){
 
 
     });
+}
+
+function isObjectEmpty(anyObject) {
+    return Object.keys(anyObject).length == 0;
 }
 

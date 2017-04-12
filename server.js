@@ -18,7 +18,10 @@ app.use(bodyParser.urlencoded({
 
 var router = new express.Router();
 require('./api/v1/projects')(router);
-app.use(router)
+require('./api/v1/workpackage')(router);
+require('./api/v1/users')(router);
+
+app.use(router);
 
 // projects = require('./routes/projects');
 //
