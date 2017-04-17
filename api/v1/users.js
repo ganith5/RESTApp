@@ -17,10 +17,10 @@ var usersDB = require('../../db/users')
 module.exports = function(router) {
 
     router.route(URI).get(function(req, res, next){
-        console.log("Get users ........");
+       // console.log("Get users ........");
         var criteria = {};
         var projectId = req.query.projectId;
-        console.log("User Id = " + projectId);
+       // console.log("User Id = " + projectId);
         criteria = {projectId : {$eq : projectId}}
 
 
@@ -34,10 +34,10 @@ module.exports = function(router) {
                 res.send("Error connecting to db")
             } else {
                 if(userDocs.length == 0){
-                    res.status(404)
+                   // res.status(404)
                 }
                 console.log("Retrieved projects = %d", userDocs.length)
-                res.send(userDocs);
+                res.status(200).send(userDocs);
 
 
             }

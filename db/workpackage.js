@@ -5,16 +5,14 @@
 
 var model = require('../models/workpackage')
 
-// exports.select = function (criteria, callback) {
-//
-//     model.workpackage.find(criteria, function(error, data){
-//
-//         console.log("db/workpackage/select")
-//         callback(error, data)
-//     })
-//
-//
-// }
+exports.saveMany = function(wkpReqList, callback) {
+    console.log("Request Data = " + JSON.stringify(wkpReqList));
+    model.workpackage.insertMany(wkpReqList, function (err, insertedWkpDocs) {
+        console.log("Workpackage inserted is : " + JSON.stringify(insertedWkpDocs));
+        callback(err, insertedWkpDocs)
+
+    })
+}
 
 
 exports.select = function (criteria, callback) {
@@ -22,7 +20,7 @@ exports.select = function (criteria, callback) {
     model.workpackage.find(criteria)
         .populate('assignee', 'userId fname')
         .exec(function(error, workPackageList){
-            console.log("List of workpackages = " + JSON.stringify(workPackageList));
+            //console.log("List of workpackages = " + JSON.stringify(workPackageList));
             callback(error, workPackageList);
         });
 
@@ -30,9 +28,19 @@ exports.select = function (criteria, callback) {
 }
 
 
-// exports.save = function(data, callback) {
-//     new model.workpackage(data).save(function(error, insertedDoc){
-//         console.log("Workpackage inserted is : " + JSON.stringify(data));
-//         callback(error, insertedDoc);
-//     })
-// }
+exports.save = function(data, callback) {
+    console.log("Request Data = " + JSON.stringify(data));
+    new model.workpackage(data).save(function(error, insertedWkpDoc){
+        //console.log("Workpackage inserted is : " + JSON.stringify(insertedWkpDoc));
+        callback(error, insertedWkpDoc);
+    })
+}
+
+exports.update = function(criteria, workPackage, callback) {
+
+    console.log("Criteria = " + JSON.stringify(criteria));
+    model.workpackage.update(criteria, workPackage, {multi: true}, function(error, updatedRecord){
+       // console.log("Workpackage Updated = " + JSON.stringify(workPackage));
+        callback(error, updatedRecord);
+    });
+}

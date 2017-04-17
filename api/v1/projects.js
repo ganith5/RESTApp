@@ -65,7 +65,7 @@ module.exports = function(router){
         console.log("Request body : " + JSON.stringify(doc));
 
         //2. Call the insert method
-        db.save(doc, function(err, saved){
+        projectDB.save(doc, function(err, saved){
             if(err){
                 // The returned error need to be defined better - in this example it is being left as is
                 //res.status(400).send(err)
@@ -80,6 +80,32 @@ module.exports = function(router){
 
 
     });
+
+
+    router.route(URI).put(
+        function(req, res, next){
+            console.log("PUT  Projects -> ")
+            var criteria = {pid: {$eq: req.query.pid}}
+            //1. Get the data
+            var projectDocInReq = req.body;
+            console.log("Request body : " + JSON.stringify(projectDocInReq));
+
+            //2. Call the insert method
+            projectDB.update(criteria, projectDocInReq, function(err, saved){
+                if(err){
+                    // The returned error need to be defined better - in this example it is being left as is
+                    //res.status(400).send(err)
+
+                    //var userError = processMongooseErrors(apiMessages.errors.API_MESSAGE_CREATE_FAILED, "POST", URI, err, {});
+                    res.setHeader('content-type', 'application/json');
+                    res.status(400).send(err)
+                } else {
+                    res.send(saved)
+                }
+            });
+
+
+        });
 }
 
 function isObjectEmpty(anyObject) {

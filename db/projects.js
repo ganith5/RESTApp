@@ -26,3 +26,11 @@ exports.select = function (criteria, callback) {
             callback(error, projectDoc);
         })
 }
+
+exports.update = function (criteria, updatedDoc, callback) {
+    model.projects.update(criteria, updatedDoc, function (err, updatedRecord) {
+        callback(err, updatedRecord)
+
+    })
+}
+

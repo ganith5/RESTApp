@@ -24,7 +24,12 @@ module.exports = function(router){
         var criteria = {};
         var wId = req.query.wid;
         console.log("URI = " + URI + " WID = " + wId)
-        criteria = { wid: {$in : wId}}
+        if(wId) {
+            criteria = { wid: {$in : wId}}
+        } else {
+            criteria = { wid: {$in : []}}
+        }
+
         console.log("Criteria = " + criteria);
 
         console.log("criteria workpackage : " + JSON.stringify(criteria));
@@ -37,14 +42,71 @@ module.exports = function(router){
                 res.send("Error connecting to db")
             } else {
                 if(wkpDocs.length == 0){
-                    res.status(404)
+                    //res.status(404)
                 }
                 console.log("Retrieved workpackages = %d",wkpDocs.length);
                 console.log("Retrieved workpackages json = ", JSON.stringify(wkpDocs));
-                res.send(wkpDocs);
+                res.status(200).send(wkpDocs);
 
 
             }
         });
     });
+
+
+    router.route(URI).post(
+        function(req, res, next){
+
+            //1. Get the data
+            var doc = req.body;
+            console.log("Request body : " + JSON.stringify(doc));
+
+            //2. Call the insert method
+            // workPackageDB.saveMany(doc, function(err, workPackageList){
+            //     if(err){
+            //         console.log("Response has error");
+            //         res.setHeader('content-type', 'application/json');
+            //         res.status(400).send(err)
+            //     } else {
+            //
+            //         res.status(200).send(workPackageList);
+            //     }
+            // });
+
+            workPackageDB.save(doc, function(err, insertedWkpDoc){
+                if(err){
+                    console.log("Response has error");
+                    res.setHeader('content-type', 'application/json');
+                    res.status(400).send(err)
+                } else {
+
+                    res.status(200).send(insertedWkpDoc);
+                }
+            });
+
+
+        });
+
+    router.route(URI).put(
+        function(req, res, next){
+            var wId = req.query.wid;
+            var criteria = { wid: {$eq : wId}};
+            var updatedWorkPackage = req.body;
+
+            workPackageDB.update(criteria, updatedWorkPackage, function(err, saved){
+                if(err){
+
+                    res.setHeader('content-type', 'application/json');
+                    res.status(400).send(err)
+                } else {
+                    res.status(200).send(saved)
+                }
+            });
+
+
+
+
+        });
+
+
 }
