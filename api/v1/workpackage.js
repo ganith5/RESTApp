@@ -6,6 +6,10 @@
 var RESOURCE = 'workpackage'
 var VERSION = 'v1'
 var URI = '/' + VERSION + '/' + RESOURCE
+var WID_PARAM = ':wid'
+var CREATE = 'create'
+var UPDATE = 'update'
+var DELETE = 'remove'
 
 process.env.DB_URI = "mongodb://ds137090.mlab.com:37090/openprojdb"
 process.env.DB_USER = "openproj"
@@ -30,8 +34,6 @@ module.exports = function(router){
             criteria = { wid: {$in : []}}
         }
 
-        console.log("Criteria = " + criteria);
-
         console.log("criteria workpackage : " + JSON.stringify(criteria));
         //2. execute the query
         workPackageDB.select(criteria, function(err, wkpDocs){
@@ -53,25 +55,45 @@ module.exports = function(router){
         });
     });
 
+    router.route(URI + '/' + WID_PARAM).get(function(req, res, next){
+        var criteria = {};
+        var wId = (req.params.wid).split(",");
+        console.log("URI = " + URI + " WID = " + wId)
+        if(wId) {
+            criteria = { wid: {$in : wId}}
+        } else {
+            criteria = { wid: {$in : []}}
+        }
 
-    router.route(URI).post(
+        console.log("criteria workpackage : " + JSON.stringify(criteria));
+        //2. execute the query
+        workPackageDB.select(criteria, function(err, wkpDocs){
+
+            if(err){
+                console.log(err)
+                res.status(500)
+                res.send("Error connecting to db")
+            } else {
+                if(wkpDocs.length == 0){
+                    //res.status(404)
+                }
+               // console.log("Retrieved workpackages = %d",wkpDocs.length);
+                console.log("Retrieved workpackages json = ", JSON.stringify(wkpDocs));
+                res.status(200).send(wkpDocs);
+
+
+            }
+        });
+    });
+
+
+    router.route(URI+ '/' +WID_PARAM+'/'+CREATE).post(
         function(req, res, next){
 
             //1. Get the data
             var doc = req.body;
             console.log("Request body : " + JSON.stringify(doc));
 
-            //2. Call the insert method
-            // workPackageDB.saveMany(doc, function(err, workPackageList){
-            //     if(err){
-            //         console.log("Response has error");
-            //         res.setHeader('content-type', 'application/json');
-            //         res.status(400).send(err)
-            //     } else {
-            //
-            //         res.status(200).send(workPackageList);
-            //     }
-            // });
 
             workPackageDB.save(doc, function(err, insertedWkpDoc){
                 if(err){
@@ -107,6 +129,41 @@ module.exports = function(router){
 
 
         });
+
+    router.route(URI + '/' + WID_PARAM + '/' + UPDATE).put(
+        function(req, res, next){
+            var wId = req.params.wid;
+            var criteria = { wid: {$eq : wId}};
+            var updatedWorkPackage = req.body;
+
+            workPackageDB.update(criteria, updatedWorkPackage, function(err, saved){
+                if(err){
+
+                    res.setHeader('content-type', 'application/json');
+                    res.status(400).send(err)
+                } else {
+                    res.status(200).send(saved)
+                }
+            });
+        });
+
+    router.route(URI + '/' + WID_PARAM + '/' + DELETE).delete(
+        function(req, res, next){
+            var wId = req.params.wid;
+            var criteria = { wid: {$eq : wId}};
+            workPackageDB.delete(criteria, function(err, removed){
+                if(err){
+
+                    res.setHeader('content-type', 'application/json');
+                    res.status(400).send(err)
+                } else {
+                    res.status(200).send(removed)
+                }
+            });
+        });
+
+
+
 
 
 }

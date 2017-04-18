@@ -44,3 +44,11 @@ exports.update = function(criteria, workPackage, callback) {
         callback(error, updatedRecord);
     });
 }
+
+exports.delete = function(criteria, callback) {
+
+    console.log("Criteria = " + JSON.stringify(criteria));
+    model.workpackage.find(criteria).remove(function(error, removedDoc){
+        callback(error, removedDoc);
+    });
+}

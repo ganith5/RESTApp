@@ -19,15 +19,49 @@ var userDB = require('../../db/users')
 module.exports = function(router){
     'use strict';
 
-    //    /v1/projects
     router.route(URI).get(function(req, res, next){
         console.log("GET Projects req.query length : " + isObjectEmpty(req.query))
-        //1. Setup query riteria for the active pacakages
         var criteria = {};
         if(!isObjectEmpty(req.query)) {
             var id = req.query.id;
             criteria = {pid : {$eq : id}}
         }
+
+
+        console.log("criteria project : " + JSON.stringify(criteria));
+        projectDB.select(criteria, function(err, docs){
+
+            if(err){
+                console.log(err)
+                res.status(500)
+                res.send("Error connecting to db")
+            } else {
+                if(docs.length == 0){
+                    res.status(404)
+                }
+                console.log("Retrieved projects = %d", docs.length)
+                if(docs.length == 1) {
+                    //Get project by id, hence, only one document will be returned at a time
+                    res.send(docs[0]);
+                } else{
+                    res.send(docs);
+                }
+
+            }
+        });
+    });
+
+
+    //    /v1/projects/id
+    router.route(URI+"/:id").get(function(req, res, next){
+        //console.log("GET Projects req.query length : " + isObjectEmpty(req.params))
+        //1. Setup query riteria for the active pacakages
+        var id = req.params.id;
+        var criteria = {pid : {$eq : id}};
+        // if(!isObjectEmpty(req.params)) {
+        //
+        //
+        // }
 
 
         console.log("criteria project : " + JSON.stringify(criteria));
@@ -56,7 +90,7 @@ module.exports = function(router){
 
 
     // CREATE new projects packages
-    router.route(URI).post(
+    router.route(URI+"/:pid/create").post(
         function(req, res, next){
         console.log("POST  Projects -> ")
 
