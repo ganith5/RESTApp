@@ -20,6 +20,8 @@ var router = new express.Router();
 require('./api/v1/projects')(router);
 require('./api/v1/workpackage')(router);
 require('./api/v1/users')(router);
+require('./api/v1/workpackagestage')(router);
+require('./api/v1/workpackagetype')(router);
 
 app.use(router);
 

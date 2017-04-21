@@ -39,8 +39,9 @@ exports.save = function(data, callback) {
 exports.update = function(criteria, workPackage, callback) {
 
     console.log("Criteria = " + JSON.stringify(criteria));
-    model.workpackage.update(criteria, workPackage, {multi: true}, function(error, updatedRecord){
-       // console.log("Workpackage Updated = " + JSON.stringify(workPackage));
+    var opts = { runValidators: true }
+    model.workpackage.findOneAndUpdate(criteria, workPackage, opts, function(error, updatedRecord){
+        console.log("Workpackage Updated = " + JSON.stringify(error));
         callback(error, updatedRecord);
     });
 }

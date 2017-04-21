@@ -14,7 +14,7 @@ require('../models/users')
 
 
 var projectSchema = mongoose.Schema({
-    pid: {type: String, required:[true, 'Id is a mandatory value']},
+    pid: {type: Number, required:[true, 'Id is a mandatory value']},
     name: {type: String, required: [true, 'Project name is a required value']},
     description: {type: String},
     type: {type: String, enum: ['Scrum Team', 'Standard Project']},

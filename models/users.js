@@ -4,9 +4,6 @@
 
 var settings = require('../db/settings');
 var mongoose = settings.mongoose
-//var projectModel = require('../models/projects')
-
-//var projectsSchema = projectModel.projects.schema
 
 
 
