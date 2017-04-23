@@ -23,7 +23,18 @@ require('./api/v1/users')(router);
 require('./api/v1/workpackagestage')(router);
 require('./api/v1/workpackagetype')(router);
 
-app.use(router);
+
+var basicauth = require('./auth/basicauth')
+
+var auth = basicauth.auth
+
+router.get('/private', auth, function(req, res) {
+    console.log("Access provided!")
+
+    res.send("Access provided");
+})
+
+app.use(auth, router);
 
 // projects = require('./routes/projects');
 //

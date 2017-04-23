@@ -13,6 +13,9 @@
     "jade": "~1.11.0",
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.2",
-    "mongoose": "^4.6.3"
+    "mongoose": "^4.6.3",
+    "passport": "^0.3.2",
+    "passport-http": "^0.3.0"
+
   }
 }

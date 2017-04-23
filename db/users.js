@@ -37,4 +37,13 @@ exports.update = function(criteria, callback) {
     })
 }
 
+exports.checkCredentials = function (username, callback) {
+
+    model.Users.findOne({'fname': username}, function(error, user) {
+        console.log("Found User = " + JSON.stringify(user));
+        callback(error, user);
+    })
+
+}
+
 
