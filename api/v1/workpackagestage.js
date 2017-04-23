@@ -15,12 +15,14 @@ process.env.DB_PASSWORD = "openproj"
 
 var workPackageStageDB = require('../../db/workpackagestage')
 var apiConstants = require('../../util/constants')
+var jwtValidator = require('../../auth/validator')
+var auth = jwtValidator.auth;
 
 module.exports = function(router) {
     'use strict';
 
 
-    router.route(URI).get(function (req, res, next) {
+    router.route(URI).get(auth, function (req, res, next) {
 
         console.log("URI : " + URI);
         var criteria = {};

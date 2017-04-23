@@ -15,7 +15,10 @@
     "serve-favicon": "~2.3.2",
     "mongoose": "^4.6.3",
     "passport": "^0.3.2",
-    "passport-http": "^0.3.0"
+    "passport-http": "^0.3.0",
+    "jwt-simple": "^0.5.1",
+    "moment": "^2.18.1"
+
 
   }
 }

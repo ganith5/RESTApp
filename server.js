@@ -16,6 +16,8 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+
+
 var router = new express.Router();
 require('./api/v1/projects')(router);
 require('./api/v1/workpackage')(router);
@@ -23,43 +25,38 @@ require('./api/v1/users')(router);
 require('./api/v1/workpackagestage')(router);
 require('./api/v1/workpackagetype')(router);
 
+//****************  Basic authentication  *****************************
+//var basicauth = require('./auth/basicauth')
+//var auth = basicauth.auth
+//app.use(auth, router);
 
-var basicauth = require('./auth/basicauth')
+//**********************************************************************
 
-var auth = basicauth.auth
 
-router.get('/private', auth, function(req, res) {
+//----------------  Token generation -----------------------------------
+
+//Token based authentication
+var jwtAuth = require('./auth/jwtauth')
+//var jwtValidator = require('./auth/validator')
+var auth = jwtAuth.auth;
+
+router.post('/token', auth, function(req, res) {
     console.log("Access provided!")
 
-    res.send("Access provided");
+    res.send('token');
 })
 
-app.use(auth, router);
 
-// projects = require('./routes/projects');
-//
-// app.get('/projects', projects.findAll);
-// app.get('/projects/:id', projects.findById)
-// app.post('/projects', projects.addProject)
-// app.put('/projects/:id', projects.updateProject)
-//
-//
-//
-// var project = {
-//     "project4" : {
-//         "id": 4,
-//         "name": "Project4",
-//         "description": "This is the project description for P4  ",
-//         "members": [
-//             {"id": 1, "name": "User1"}, {"id": 2, "name": "User2"}, {"id": 3, "name": "User3"}
-//         ],
-//         "workpackage": [
-//             {"id": 1, "name": "WP1", "description": "WP1 description", "type": "Task"},
-//             {"id": 2, "name": "WP2", "description": "WP2 description", "type": "Bug"},
-//             {"id": 3, "name": "WP3", "description": "WP3 description", "type": "Epic"}
-//         ]
-//     }
-// }
+/*auth = jwtValidator.auth;
+
+router.get('/private', auth, function(req,res){
+    res.send('Access granted to private resource!!!')
+});*/
+
+app.use(router);
+
+//------------------------------------------------------------------------
+
 
 
 
