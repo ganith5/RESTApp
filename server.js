@@ -6,6 +6,7 @@ var express = require('express');
 var cors = require('cors');
 var fs = require('fs');
 var bodyParser = require('body-parser');
+var morgan = require('morgan');
 
 var app = express();
 app.use(cors());
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+//app.use(morgan);
 
 
 
@@ -36,7 +38,8 @@ require('./api/v1/workpackagetype')(router);
 //----------------  Token generation -----------------------------------
 
 //Token based authentication
-var jwtAuth = require('./auth/jwtauth')
+console.log("Current directory: " + __dirname);
+var jwtAuth = require(__dirname + '/auth/jwtauth')
 //var jwtValidator = require('./auth/validator')
 var auth = jwtAuth.auth;
 

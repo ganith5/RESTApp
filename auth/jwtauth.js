@@ -36,8 +36,6 @@ var auth = function(req, res) {
                     name: user.fname
                 }
 
-                console.log('Payload created = ' + payload)
-
                 //Header encode is handled internally by JWT
                 var token = jwt.encode(payload, jwtParams.JWT_TOKEN_SECRET)
 

@@ -3,7 +3,10 @@ NodeJS + MongoDB + Express REST application
 
 ###Tools used
 ######Database: mLab (Hosted MongoDB)
-######Middleware: Used Express NPM package to create resources
+######Middleware: 
+    Web application framework: ExpressJS NPM package to create resources. 
+    Express's routing module routes requests to appropriate request handlers.
+    [What is ExpressJS?](https://evanhahn.com/understanding-express/)
 ######NodeJS: Javascript runtime built on Chrome V8 Javacsript engine
 
 
@@ -36,5 +39,7 @@ The different kinds of authentication used :
         or a public/private key pair using RSA.
 
    #####3) OAuth
+   
+        OAuth is not a API or service but a standard that provides client appplications permission to access its services
 
 
